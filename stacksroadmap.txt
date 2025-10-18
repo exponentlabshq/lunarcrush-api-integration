@@ -1,0 +1,198 @@
+Check out the 'Satoshi Upgrades' for Stacks & sBTC
+
+Stacks RoadmapMeet the new home of the Stacks Roadmap, a community-driven set of strategies and priorities for the leading Bitcoin L2.
+Jump to a section:
+Stacks Core
+sBTC
+Ecosystem Growth
+Recommended Reading
+Gain deeper insights into the Stacks Roadmap with these posts expanding on key strategic elements of what's ahead for the leading Bitcoin L2.
+Stacks Value & Economy
+Learn how Stacks contributors think about the various dynamics that come into play when designing Stacks’ key systems as well as their commitment to developing in secure, sustainable ways that prioritize Stacks builders, economy, and ecosystem.
+Read more 
+sBTC Design Principles
+sBTC strategy is inextricable from the Stacks network, asset, and ecosystem. Read more about how builders and contributors leverage design principles to strike a balance between competing forces and needs.
+
+Read more 
+Stacks DeFi Growth Plans
+As the ecosystem takes several Bitcoin products to market in 2025, traction is the name of the game. The ecosystem is rallying to support new efforts to help builders grow and has proposed other new areas for further investment.
+Read more 
+Important notes about this roadmap
+Something missing?
+Ecosystem Growth	sBTC	Stacks Core
+
+Stacks Core
+Block production and speed
+The need for fast, consistent transactions is table stakes for any top ecosystem. Both speed and throughput are critical areas of research and development that will see an increased focus for core contributors as the ecosystem scales, building off progress since the release of Nakamoto and sBTC.
+
+What Core Developers are working toward:
+✅ Short-term: Achieve consistent <10s transaction times.
+
+🔨 Long-term: Stacks will become the fastest Bitcoin L2 on the market, putting it in line with speeds on other top ecosystems — all while prioritizing robustness, decentralization, and overall security with 100% Bitcoin hashpower. Active R&D on further performance increases is underway — future designs and their timelines will be informed by the needs of builders.
+Ongoing: Signer side optimizations which will increase block production speed.
+Ongoing: Update the cost tracker
+Ongoing: Optimize the VM so that it is faster (faster, lower costs).
+Ongoing: Benchmarking WASM
+Leads, Links, etc.: Bitcoin L2 Labs, Hiro Systems, Stacks Foundation
+
+# ongoing #
+Clarity & Wasm
+Core developers are working a new version of Clarity and the ability to compile to Wasm, aiming to remove technical debt and lay the groundwork for future improvements to transaction throughput, smart contract efficiency, app performance and lay a possible foundation for additional runtimes. The Wasm compiler is being benchmarked to establish real-world performance gains and subsequent prioritization downstream of that data.
+
+🧠 Clarity 4: Work is also going on to make Clarity easier to work with and enable better Bitcoin integration, among other improvements.
+Leads, Links, etc.: Hiro, Bitcoin L2 Labs, Clarity4 SIP
+
+# in progress #
+Stacking Improvements, Ledger Live
+There are several major improvements on the horizon for Stacking. Contributors and key ecosystem partners are evaluating how to simplify Proof-of-Transfer and Stacking to make a simpler, higher yield experience for both individuals and pool operators.
+
+Stacking improvements for users: The "Improved Stacking Protocol" SIP proposes a change to the Stacking process so that Stackers can change their Stacking settings without the 'cooldown' cycle. Further, the relationship between Stackers and signers is strengthened and Stacking overall is simplified.
+Leads, Links, etc.: SIP Draft, Forum post, Friedger, Hiro Systems
+
+# SIP Drafting #
+Stacking improvements for pool operators:
+Pool operations for Stacking can be difficult, resulting in fewer pools operating and limits to user experience in some areas. Alum Labs, an sBTC and Stacks signer with expertise in staking systems has been working on a number of upgrades and tooling that will not only streamline pool operations, but also play a role in unlocking integrations like Ledger Live. These improvements include:
+
+Stacking Pool Rewards Calculator & Rewards Distribution: Tracking system for number of stackers, stacking amounts, accepted delegations, aggregation commits, etc.
+Standalone application with REST API service: API endpoints for relevant pool data
+Integration capabilities for pool operators' websites
+Stacking Pool Rewards Distribution with Fee Dedication Mechanism
+Stacking Software Development Kit
+This work will also result in the ability for pools to operate in a fully decentralized manner where the rewards are distributed as sBTC.
+Leads, Links, etc.: Alum Labs
+
+# in progress #
+Ledger Live integration:
+Work to enable SIP-010 support on Ledger and Stacking inside Ledger Live has been underway for some time. Contributors are working with Ledger to respond to changes in how staking is enabled through their platform with the goal of making various Stacking options available natively in Ledger Live.
+Leads, Links, etc.: Zondax, BD Working Group
+
+# in progress #
+Miner Transaction Replay on Bitcoin Reorg
+Builders requested adding a feature to the default Miner binary to have the miner replay transactions that were orphaned by a Bitcoin reorg to be included within the next tenure. This replay feature is fully designed and will be made available on testnet in Q3 2025.
+Leads, Links, etc.: Bitcoin L2 Labs, Hiro Systems, Github Tracker
+
+# in progress #
+"PoX 5"
+PoX is a key differentiator for Stacks, so the consensus mechanism is something Core Developers are always open to improving or adjusting to best enable use cases on top of Stacks. While there is not yet a definitive design proposal, work going into some of the Stacking improvements above could result in the need for an upgraded version of PoX nicknamed PoX 5.
+# area of exploration #
+
+sBTC
+Satoshi's Upgrades: Preview technical advancements and designs for Stacks and sBTC [Check them out]
+sBTC Withdrawal Functionality
+The ability to withdraw BTC from sBTC was the most urgent unlock for downstream integrations, listings, and further growth. It was enabled as part of sBTC's phased rollout on April 30, 2025.
+Leads, Links, etc.: Bitcoin L2 Labs, Announcement
+
+# completed #
+Improved custody support for sBTC
+A key unlock for sBTC adoption lies in onboarding institutional users who hold large portions of latent Bitcoin capital. Stacks is uniquely positioned to serve this audience due to its long track record, performance, brand value, and strong institutional relationships. Builders will benefit greatly from the influx of institutional capital, but many institutional investors who are eager to access Bitcoin DeFi on Stacks are unable to participate on-chain due to compliance and fiduciary constraints. They require qualified custodians not just for the sBTC, but also for their underlying BTC that was pegged in. Enabling institutions to deploy BTC capital in the Stacks ecosystem will be a top focus for Bitcoin L2 Labs in Q2 2025.
+
+Several custody providers have already been onboarded to support sBTC (BitGo, Hex Trust, Copper, ForDeFi) and additional work is being done to ensure capital can be deployed directly from qualified custodians.
+BitGo Launches Institutional Support for sBTC, Ushering in a New Era for Bitcoin DeFi
+Leads, Links, etc.: Bitcoin L2 Labs
+
+# in progress #
+Driving STX value with future network upgrades
+Due to its unique architecture, Stacks is positioned to attract millions of users and significant BTC capital by enabling a superior user experience, low-cost transactions, and native Bitcoin yield opportunities.
+
+To ensure long-term sustainability, builders and product leaders agree that as adoption accelerates, value accrual mechanisms should evolve in parallel. Growth in usage must directly benefit the Stacks network, its ecosystem participants, and the STX asset to keep incentives aligned and support continued expansion.
+Leads, Links, etc.: Bitcoin L2 Labs, Stacks Economic Model
+
+# in progress #
+Here are some of the areas of exploration for future value accrual related upgrades:
+🔸 Dual Stacking - Aligning BTC and STX Incentives
+🔸 sBTC Yield Mechanisms (In progress)
+🔸 Protocol Revenue: Simplifying UX and Aligning STX Value Capture
+Toward Trustless sBTC
+It is crucial to remain at the cutting edge of protecting the underlying Bitcoin capital as we push forward new use cases for deploying more and more BTC on Stacks.
+
+Core developers have been exploring how sBTC can be upgraded to be fully self-custodial, combining unique aspects of Stacks with design breakthroughs that would further reduce the trust assumptions of the protocol. These designs would enable users to retain unilateral control over their underlying BTC while also providing better trust-minimization guarantees for the underlying BTC on the L1.
+
+Details on these updates are coming out shortly as a litepaper. These upgrades go hand-in-hand with the focus on value accrual to STX as they can enable more BTC capital to be trustlessly deployed and used on Stacks.
+
+In progress:
+Qualified custody support (more above)
+Self-custody: Much of the current research involves methods to remove the core custodial risk that underpins nearly every wrapped BTC model in existence today. Unlike systems where a federation or signer group intermediary holds Bitcoin, a fully trustless model maintains the underlying BTC in self-custody, wherein the user can unilaterally withdraw their sBTC to BTC. There is already a design proposal for such sBTC upgrades for when sBTC is held in L2 wallets of the user and used in L2 payments. For details, see the upcoming litepaper.
+“Bitcoin Post-Conditions” build in the same direction, looking into designs that allow users and developers to combine the programmability of the L1 and the Stacks L2 for an effect that meshes self-custody with DeFi utility. For example, a user would be able to define conditions under which the underlying Bitcoin on the L1 is allowed to move, much like post conditions at the Stacks layer, but for the L1. This means that even if a smart contract behaves unexpectedly or is compromised, the BTC will remain safe as the conditions defined at the L1 were not met.
+
+Areas of Exploration:
+Outside of the above-mentioned areas like self-custodial sBTC and Bitcoin post-conditions there are a few areas that core developers are doing some exploration. These include:
+BitVM: Core contributors remain aware of BitVM’s progression and will explore possible implementations for Stacks should it present a faster path to market than other paths currently under exploration.
+Data Availability: Stacks currently only stores hashes of L2 data on the Bitcoin L1 and not full data. With advancements in ZK and other proofs, it remains an open area of exploration if Bitcoin L1 can be used as a full Data Availability (DA) layer for Stacks. With full data availability on Bitcoin, anyone can independently verify Stacks blocks and reconstruct the state of the L2. Such approaches can have some negative impacts on speed and currently core developers are optimizing for L2 speed over other things, but continue to monitor progress for Bitcoin DA use.
+Leads, Links, etc.: Learn more about these designs
+
+# research & development #
+The Satoshi Upgrades
+Many of the updates for sBTC and Stacks covered above are interrelated and interdependent. As such, some core contributors have collectively dubbed them the 'Satoshi Upgrades'. These are upgrades to both Stacks and sBTC will ensure Stacks remains the leading Bitcoin L2 with sBTC becoming entrenched as the most secure programmable Bitcoin asset. Designs include paths to increased security, liquidity, TVL, and user growth, while enabling new use cases alongside ever-improving trust assumptions for the underlying BTC.
+Leads, Links, etc.: Preview of the 'Satoshi Upgrades'
+
+# research & development #
+
+Ecosystem Growth
+Stacks TVL, Liquidity & DeFi Growth
+All versions of Stacks' future depend on healthy Stacks DeFi. Builders and core contributors are collaborating on a builder-led DeFi growth plan that has already helped Stacks achieve a TVL high in April. Efforts have resulted in over $20mm+ deployed into strategic DeFi apps in the past 3 months.
+Stacks is on a path for $1B in TVL in DeFi. Efforts are underway to reach $250mm by the end of Q2 2025, including:
+
+LP Incentives
+Incentives for larger institutional
+Incentives for Builders to grow their protocols
+TGE readiness for the ecosystem
+SIP 010 Asset support on exchanges (Gate.io now supports SIP-010)
+Onboarding an on-chain Market Maker
+Stablecoin liquidity in Stacks apps
+
+sBTC TVL (Cap 3 & Beyond)
+Work has been underway on efforts to bring in sBTC since the end of 2024, notably resulting in the previous two caps being filled. Contributors have also helped enable the flow of sBTC into Stacks apps by developing and facilitating relationships with sBTC holders. sBTC minters include major players in the space such as Jump, UTXO, SNZ, and more.
+
+The next milestone is Cap 3, allowing another 2,000 BTC into the protocol, before opening the system fully. The Stacks Asia Foundation has partnered with Taptive, SNZ, LunarCrush, and others to push forward sBTC TVL growth as part of an inter-ecosystem initiative targeting the first 21,000 sBTC.
+Leads, Links, etc.: Stacks DeFi WG, Trust Machines, Stacks Asia Foundation, Taptive, DeFi Growth Roadmap
+
+# completed #
+Centralized exchange listings (sBTC, SIP-010)
+With sBTC withdrawal functionality live, only lifting the cap remains a blocker to centralized exchange listings for sBTC. Contributors are working to leverage the interest in sBTC to potentially ease listings for Stacks builders with listable tokens, given sBTC utilizes the SIP-010 standard. As sBTC is listed, Stacks teams with tokens should work to present a compelling case to exchanges to secure listings or launch TGEs. sBTC listings are expected before the end of Q3 2025.
+Leads, Links, etc.: BD Working Group, Gate.io Lists sBTC
+
+# completed #
+Interoperability (Bridges)
+Interoperability is key for sBTC to improve liquidity and allows users and developers from other chains to access Stacks-based apps and assets, expanding the potential user base far beyond the native ecosystem. For Stacks, this means greater relevance, network effects, and long-term value capture.
+Stacks will integrate with:
+
+Axelar (expected in Q4 2025) [Learn more]
+Wormhole (expected in Q4 2025) [Learn more]
+Leads, Links, etc.: BD Working Group, Bitcoin L2 Labs, Learn more
+
+# in progress #
+BNS
+The protocol hopes to create standardizations for Zonefiles so more wallet address types, social links, and other metadata resolve in the same Zonefile by the DNS. This will accelerate BNS integrations across a variety of partners (wallets, exchanges).
+Leads, Links, etc.: BD Working Group, Strata Labs
+
+# upcoming #
+Stablecoins
+Tier 1 stablecoin availability and liquidity are a key unlock for Stacks DeFi. The ecosystem is currently rallied around a bridged USDC asset and a Bitcoin-backed stablecoin asset (USDh) to show momentum in DeFi growth. We’re in the implementation stages with a Tier 1 stablecoin for canonical deployment.
+Leads, Links, etc.: BD Working Group
+
+# in progress #
+Wallet Integrations
+Additional wallet integrations offer a clear path to Stacks user growth. A deal is now finalized with one of the industry's leading wallet platforms, funded by the Stacks Foundation. The protocol serves tens of millions of users. All technical integration work is completed and docs have been provided to builders - a full announcement is pending partner approval and now expected in October.
+Leads, Links, etc.: Stacks Foundation
+
+# upcoming #
+Grants, Marketing, & Incentives
+Stacks Labs is picking up the mantle for Stacks-focused marketing and has opened a CMO position. Ongoing programs from the Stacks Foundation focused on developer growth remain, such as Code 4 Stacks and Stacks Ascent. The Stacks Foundation has also opened a SIP-031 Interim Grant program and funded DeGrants for another cohort ahead of the Stacks Endowment eventually taking over grant efforts in the ecosystem.
+Leads, Links, etc.: Stacks Labs, Stacks Foundation
+
+# ongoing #
+Activate the Bitcoin economy with the leading Bitcoin L2STACKS
+Stacks 101
+Find Events
+Try Apps
+Build Something
+News & Updates
+Earn BTC
+Stacks Data
+Stacks Explorer
+Connect
+
+
+The Stacks Roadmap is determined by the community via workshops, forum posts, Stacks Improvement Proposals and more that establish builder and user needs. It is intended to be updated regularly as new information is available. It is not intended to cover every ongoing project, but seeks to capture widely impactful work and the long-term vision for key aspects of the ecosystem.
+Important notes about this roadmap
+Add something to this roadmap
