@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Final Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <style>
+        body {
+            background-color: #1a202c;
+            color: #cbd5e0;
+        }
+        .chart-wrapper {
+            height: 300px;
+            position: relative;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+    <h1 class="text-3xl md:text-4xl font-bold mb-8 text-center">The Final Dashboard</h1>
+
+    <div class="space-y-8">
+        <!-- Creator Profile -->
+        <div>
+            <h2 class="text-2xl font-bold mb-4 border-b border-gray-600 pb-2">Creator Profile</h2>
+            <div id="creator-profile"></div>
+        </div>
+
+        <!-- Grant Evaluation -->
+        <div>
+            <h2 class="text-2xl font-bold mb-4 border-b border-gray-600 pb-2">Grant Evaluation</h2>
+            <div id="grant-evaluation"></div>
+        </div>
+
+        <!-- Top Community -->
+        <div>
+            <h2 class="text-2xl font-bold mb-4 border-b border-gray-600 pb-2">Top Community</h2>
+            <div id="top-community"></div>
+        </div>
+
+        <!-- Topic Influence Analysis -->
+        <div>
+            <h2 class="text-2xl font-bold mb-4 border-b border-gray-600 pb-2">Topic Influence Analysis</h2>
+            <div class="p-4 bg-gray-800 rounded">
+                <canvas id="topic-influence-chart"></canvas>
+            </div>
+        </div>
+
+        <!-- Content Intelligence -->
+        <div>
+            <h2 class="text-2xl font-bold mb-4 border-b border-gray-600 pb-2">Content Intelligence</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="p-4 bg-gray-800 rounded">
+                    <h3 class="text-xl font-bold mb-2">Sentiment Distribution</h3>
+                    <canvas id="sentiment-chart"></canvas>
+                </div>
+                <div class="p-4 bg-gray-800 rounded">
+                    <h3 class="text-xl font-bold mb-2">Keyword Frequency</h3>
+                    <canvas id="keyword-frequency-chart"></canvas>
+                </div>
+            </div>
+            <div id="content-intelligence-details" class="mt-8"></div>
+        </div>
+
+        <!-- Viral Posts -->
+        <div>
+            <h2 class="text-2xl font-bold mb-4 border-b border-gray-600 pb-2">Viral Posts</h2>
+            <div id="viral-posts-container" class="space-y-6"></div>
+        </div>
+
+        <!-- Analysis Metadata -->
+        <div>
+            <h2 class="text-2xl font-bold mb-4 border-b border-gray-600 pb-2">Analysis Metadata</h2>
+            <div id="analysis-metadata" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+        </div>
+    </div>
+
+    <script>
+        const jsonData = {"analysis_metadata":{"analyzed_account":"@attractfund1ng","analysis_date":"2025-10-18 22:33:10","analyzer_version":"Exhaustive Treasury Analyzer v1.0","data_sources":["LunarCrush API v4"],"analysis_scope":"Comprehensive social analytics for Stacks DeGrants evaluation"},"creator_profile":{"creator_id":"twitter::1569768861049974784","creator_name":"attractfund1ng","creator_display_name":"Blockface.btc","creator_avatar":"https://pbs.twimg.com/profile_images/1969988568002027520/pGxIIb-F_200x200.jpg","creator_followers":2226,"creator_rank":1064039,"interactions_24h":1672,"topic_influence":[{"topic":"lunarcrush","count":9,"percent":4.02,"rank":3},{"topic":"nyc","count":2,"percent":0.89},{"topic":"sbtc","count":1,"percent":0.45},{"topic":"$shop","count":1,"percent":0.45},{"topic":"p2p","count":1,"percent":0.45},{"topic":"$25k","count":1,"percent":0.45},{"topic":"onchain","count":1,"percent":0.45},{"topic":"bitcoin","count":1,"percent":0.45},{"topic":"behind the","count":1,"percent":0.45},{"topic":"money","count":1,"percent":0.45}],"top_community":[{"creator_name":"peacelovemusicg","creator_display_name":"PeaceLoveMusic.btc ✌️🖤 🎶","creator_avatar":"https://pbs.twimg.com/profile_images/1963613683206008832/XY3x9PVD_200x200.jpg","count":125},{"creator_name":"skullcoinbtc","creator_display_name":"Skullcoin","creator_avatar":"https://pbs.twimg.com/profile_images/1833193247272816640/SAGEXICy_200x200.jpg","count":70},{"creator_name":"herogamer21btc","creator_display_name":"HeroGamer21.btc 🥕⚡","creator_avatar":"https://pbs.twimg.com/profile_images/1976828193861488640/TJA8LYBZ_200x200.jpg","count":68},{"creator_name":"bitcoinlivedb","creator_display_name":"₿itcoinlive 𝕏 Decentralized ₿roadcasting","creator_avatar":"https://pbs.twimg.com/profile_images/1576272517362229250/ClE6jti2_200x200.jpg","count":50},{"creator_name":"stacks","creator_display_name":"stacks.btc","creator_avatar":"https://pbs.twimg.com/profile_images/1764968185399267328/lrmnHOuN_200x200.jpg","count":39},{"creator_name":"stacksaiguild","creator_display_name":"Stacks AI Guild | stacksaiguild.btc","creator_avatar":"https://pbs.twimg.com/profile_images/1956429611111182336/PwZvQR3A_200x200.jpg","count":31},{"creator_name":"gpsc_stx","creator_display_name":"Gpsc.btc","creator_avatar":"https://pbs.twimg.com/profile_images/1905292260020715523/669ZDnPf_200x200.jpg","count":29},{"creator_name":"deorganizedbtc","creator_display_name":"deorganized.btc 🎙","creator_avatar":"https://pbs.twimg.com/profile_images/1876023915136372736/TQtCItAC_200x200.jpg","count":26},{"creator_name":"3hunnatheartist","creator_display_name":"3hunnatheartist.btc","creator_avatar":"https://pbs.twimg.com/profile_images/1967283265632378880/uF2DaMHc_200x200.jpg","count":24},{"creator_name":"rockyntheblock","creator_display_name":"Rocky & the Block","creator_avatar":"https://pbs.twimg.com/profile_images/1559408849085292544/zH1HX1_0_200x200.jpg","count":22},{"creator_name":"mrwagmibtc","creator_display_name":"mrwagmi 🟧","creator_avatar":"https://pbs.twimg.com/profile_images/1966001527413252096/b7tA9G0j_200x200.png","count":21},{"creator_name":"joevezz","creator_display_name":"JoeVezz","creator_avatar":"https://pbs.twimg.com/profile_images/1930383222309040129/qTmJNSm-_200x200.jpg","count":14},{"creator_name":"xyzerobtc","creator_display_name":"zeroxyz.base.eth | .btc ♟","creator_avatar":"https://pbs.twimg.com/profile_images/1973794428889276417/dVYUQTEV_200x200.jpg","count":13},{"creator_name":"melbellebtc","count":11},{"creator_name":"lunarcrush","creator_display_name":"LunarCrush Social Analytics","creator_avatar":"https://pbs.twimg.com/profile_images/1958717678476304384/CbzjwJvB_200x200.png","count":10},{"creator_name":"melbelle_btc","creator_display_name":"mel.btc","creator_avatar":"https://pbs.twimg.com/profile_images/1974742359570108416/8zNJeuq3_200x200.jpg","count":10},{"creator_name":"theliberalthumb","creator_display_name":"Sam","creator_avatar":"https://pbs.twimg.com/profile_images/1976335546969440256/-cCOG2cK_200x200.jpg","count":9},{"creator_name":"piplord1010","creator_display_name":"Plord.BTC","creator_avatar":"https://pbs.twimg.com/profile_images/1625103249698131976/9_6TtcxM_200x200.jpg","count":9},{"creator_name":"gpscstx","count":8},{"creator_name":"jackbinswitch","creator_display_name":"Jackbinswitch.btc 🦡","creator_avatar":"https://pbs.twimg.com/profile_images/1965586259834712064/3RAj2aOA_200x200.jpg","count":8}]},"topic_influence_analysis":{"total_topics":18,"topics":[{"topic":"aptos","count":25,"percent":13.586956521739129,"rank":0,"stacks_relevance_score":2,"stacks_relevance_category":"Low","keywords_found":["aptos"]},{"topic":"UI","count":40,"percent":21.73913043478261,"rank":0,"stacks_relevance_score":2,"stacks_relevance_category":"Low","keywords_found":["UI"]},{"topic":"btc","count":60,"percent":32.608695652173914,"rank":0,"stacks_relevance_score":2,"stacks_relevance_category":"Low","keywords_found":["btc"]},{"topic":"stacks","count":105,"percent":57.065217391304344,"rank":0,"stacks_relevance_score":2,"stacks_relevance_category":"Low","keywords_found":["stacks"]},{"topic":"leverage","count":1,"percent":0.5434782608695652,"rank":0,"stacks_relevance_score":2,"stacks_relevance_category":"Low","keywords_found":["leverage"]},{"topic":"bitcoin","count":17,"percent":9.239130434782608,"rank":0,"stacks_relevance_score":2,"stacks_relevance_category":"Low","keywords_found":["bitcoin"]},{"topic":"finance","count":5,"percent":2.717391304347826,"rank":0,"stacks_relevance_score":2,"stacks_relevance_category":"Low","keywords_found":["finance"]},{"topic":"github","count":6,"percent":3.260869565217391,"rank":0,"stacks_relevance_score":2,"stacks_relevance_category":"Low","keywords_found":["github"]},{"topic":"hackathon","count":4,"percent":2.1739130434782608,"rank":0,"stacks_relevance_score":2,"stacks_relevance_category":"Low","keywords_found":["hackathon"]},{"topic":"clarity","count":5,"percent":2.717391304347826,"rank":0,"stacks_relevance_score":2,"stacks_relevance_category":"Low","keywords_found":["clarity"]},{"topic":"UX","count":3,"percent":1.6304347826086956,"rank":0,"stacks_relevance_score":2,"stacks_relevance_category":"Low","keywords_found":["UX"]},{"topic":"smart contract","count":2,"percent":1.0869565217391304,"rank":0,"stacks_relevance_score":2,"stacks_relevance_category":"Low","keywords_found":["smart contract"]},{"topic":"collateral","count":1,"percent":0.5434782608695652,"rank":0,"stacks_relevance_score":2,"stacks_relevance_category":"Low","keywords_found":["collateral"]},{"topic":"defi","count":5,"percent":2.717391304347826,"rank":0,"stacks_relevance_score":2,"stacks_relevance_category":"Low","keywords_found":["defi"]},{"topic":"DEFI","count":5,"percent":2.717391304347826,"rank":0,"stacks_relevance_score":2,"stacks_relevance_category":"Low","keywords_found":["DEFI"]},{"topic":"BTCFI","count":1,"percent":0.5434782608695652,"rank":0,"stacks_relevance_score":2,"stacks_relevance_category":"Low","keywords_found":["BTCFI"]},{"topic":"yield","count":3,"percent":1.6304347826086956,"rank":0,"stacks_relevance_score":2,"stacks_relevance_category":"Low","keywords_found":["yield"]},{"topic":"ethereum","count":1,"percent":0.5434782608695652,"rank":0,"stacks_relevance_score":2,"stacks_relevance_category":"Low","keywords_found":["ethereum"]}],"stacks_alignment_score":100,"ecosystem_keywords_found":["aptos","UI","btc","stacks","leverage","bitcoin","finance","github","hackathon","clarity","UX","smart contract","collateral","defi","DEFI","BTCFI","yield","ethereum"],"relevance_breakdown":{"High":0,"Medium":0,"Low":18},"total_posts_analyzed":184},"content_intelligence":{"total_posts":335,"keyword_frequency":{"btc":3,"bitcoin":20,"stacks":109,"defi":4,"DEFI":4,"BTCFI":1,"finance":4,"collateral":1,"yield":3,"leverage":1,"hackathon":3,"github":6,"ethereum":1,"aptos":26,"smart contract":2,"clarity":5,"UI":4,"UX":2},"sentiment_analysis":{"average_sentiment":3.079373134328358,"positive_posts":14,"neutral_posts":320,"negative_posts":1,"sentiment_distribution":{"very_positive":0,"positive":17,"neutral":317,"negative":1,"very_negative":0}},"engagement_analysis":{"total_interactions":42840,"average_interactions_per_post":127.88059701492537,"max_interactions":1862,"min_interactions":1,"engagement_distribution":{"high_engagement":2,"medium_engagement":103,"low_engagement":230}},"content_themes":[],"viral_posts":[{"id":"1978914101788102670","title":"Q: Who are we building for? #APTOS \n\nft. @chriskim_dev & @rockyntheblock","interactions":1862,"sentiment":3,"link":"https://x.com/attractfund1ng/status/1978914101788102670"},{"id":"1979385774882586699","title":"Here's how we're going to leverage @LunarCrush to 10X the @Stacks DeGrants Evaluation process for th...","interactions":1237,"sentiment":3.35,"link":"https://x.com/attractfund1ng/status/1979385774882586699"},{"id":"1978143290114314240","title":"Hello World.","interactions":753,"sentiment":3,"link":"https://x.com/attractfund1ng/status/1978143290114314240"},{"id":"1977575959634333964","title":"@axopoa @stackslabs @StacksEndowment if the purpose of stacks is to make bitcoin programmable\n\nthen ...","interactions":468,"sentiment":3.24,"link":"https://x.com/attractfund1ng/status/1977575959634333964"},{"id":"1977898096823550339","title":"","interactions":315,"sentiment":3,"link":"https://x.com/attractfund1ng/status/1977898096823550339"},{"id":"1977157809046536520","title":"I have a $100 BTC who's in.\n\nWe're doing this.\n\nFibonacci the funding to match the leading and laggi...","interactions":347,"sentiment":3,"link":"https://x.com/attractfund1ng/status/1977157809046536520"},{"id":"1977939688842277313","title":"Make Bitcoin P2P Cash Again with @Stacks & @turnkeyhq \n\n","interactions":453,"sentiment":3,"link":"https://x.com/attractfund1ng/status/1977939688842277313"},{"id":"1977441013078905335","title":"Prioritize RGB Integration: Given the feedback, @______ADZ______  was encouraged to focus on integra...","interactions":331,"sentiment":3.32,"link":"https://x.com/attractfund1ng/status/1977441013078905335"},{"id":"1976530032227913740","title":"The future is clearly interoperable. It's time to fucking act like it.\n\n@______ADZ______ is unifying...","interactions":687,"sentiment":3,"link":"https://x.com/attractfund1ng/status/1976530032227913740"},{"id":"1978901460201922701","title":"Just getting started on @Aptos?\n\n@rockyntheblock interviews @chriskim_dev in NYC.","interactions":419,"sentiment":3,"link":"https://x.com/attractfund1ng/status/1978901460201922701"},{"id":"1976124387326836800","title":"Stacks MCP Server Submitted for @Stacks DeGrants Phase II.\n\nGithub:","interactions":651,"sentiment":3,"link":"https://x.com/attractfund1ng/status/1976124387326836800"},{"id":"1976678172793196841","title":"","interactions":469,"sentiment":3,"link":"https://x.com/attractfund1ng/status/1976678172793196841"},{"id":"1973947304001585584","title":"Hey @Stacks Devs - \nRoast my MCP Server.\n\n","interactions":489,"sentiment":3,"link":"https://x.com/attractfund1ng/status/1973947304001585584"},{"id":"1974571914493382675","title":"","interactions":739,"sentiment":3,"link":"https://x.com/attractfund1ng/status/1974571914493382675"},{"id":"1975439770781425962","title":"You're not ready for it.\n\n","interactions":377,"sentiment":3,"link":"https://x.com/attractfund1ng/status/1975439770781425962"},{"id":"1976104302453436473","title":"","interactions":352,"sentiment":3,"link":"https://x.com/attractfund1ng/status/1976104302453436473"},{"id":"1973123620575780911","title":"","interactions":999,"sentiment":3,"link":"https://x.com/attractfund1ng/status/1973123620575780911"},{"id":"1973538885415387499","title":"@herogamer21btc @StacksAIGuild Stacks Clarity MCP Server (by @StacksAIGuild)\n\nGithub:","interactions":449,"sentiment":3.33,"link":"https://x.com/attractfund1ng/status/1973538885415387499"},{"id":"1972741549017743507","title":"Not Bored Ape Yacht Club","interactions":298,"sentiment":3.67,"link":"https://x.com/attractfund1ng/status/1972741549017743507"},{"id":"1973581577549684996","title":"The Syndicate | Stacks Chief Experience Officer ","interactions":582,"sentiment":3,"link":"https://x.com/attractfund1ng/status/1973581577549684996"},{"id":"1969395508293578781","title":"90-Day Fiance for Waterloo Grads who need the new VISA.\n\nLet's do this @andrewchen. I know someone w...","interactions":520,"sentiment":3,"link":"https://x.com/attractfund1ng/status/1969395508293578781"},{"id":"1969182884788396162","title":"","interactions":356,"sentiment":3,"link":"https://x.com/attractfund1ng/status/1969182884788396162"},{"id":"1966194013326946318","title":"Stacks: The Good, The Bad & The Ugly (Pidgin Version)","interactions":347,"sentiment":2.57,"link":"https://x.com/attractfund1ng/status/1966194013326946318"},{"id":"1966138264097878113","title":"","interactions":421,"sentiment":3,"link":"https://x.com/attractfund1ng/status/1966138264097878113"},{"id":"1965847422309212301","title":"The Syndicate | Leetcode Day[0]","interactions":372,"sentiment":3,"link":"https://x.com/attractfund1ng/status/1965847422309212301"},{"id":"1968046217721774322","title":"Autism, likely.","interactions":322,"sentiment":3.67,"link":"https://x.com/attractfund1ng/status/1968046217721774322"},{"id":"1968138161814712495","title":"","interactions":616,"sentiment":3,"link":"https://x.com/attractfund1ng/status/1968138161814712495"},{"id":"1968123486515368364","title":"@RyanCarniato HTMX FAM.\n\n","interactions":966,"sentiment":3,"link":"https://x.com/attractfund1ng/status/1968123486515368364"},{"id":"1967104722172866987","title":"@binaya_btc","interactions":329,"sentiment":3,"link":"https://x.com/attractfund1ng/status/1967104722172866987"},{"id":"1967349506590294042","title":"","interactions":406,"sentiment":3,"link":"https://x.com/attractfund1ng/status/1967349506590294042"},{"id":"1966196172823081113","title":"Stacks: The Good, The Bad & The Ugly (Shona Edition)","interactions":306,"sentiment":2.57,"link":"https://x.com/attractfund1ng/status/1966196172823081113"},{"id":"1965953640671358999","title":"My boss once said\nthe troubles I have with people\nare where true bonds are made.\n\nJust when you thin...","interactions":788,"sentiment":3.08,"link":"https://x.com/attractfund1ng/status/1965953640671358999"},{"id":"1966178366798909440","title":"@herogamer21btc @fred_dog93 From Stacks Catalyst to SIP Insight\n\nEnhanced Demo:\n\nAlternate Landing:\n...","interactions":488,"sentiment":3.17,"link":"https://x.com/attractfund1ng/status/1966178366798909440"},{"id":"1966195032551206927","title":"Stacks: The Good, The Bad & The Ugly (Korean Edition)","interactions":480,"sentiment":2.57,"link":"https://x.com/attractfund1ng/status/1966195032551206927"}],"stacks_mentions":[{"keyword":"btc","count":3,"category":"bitcoin","relevance_score":2},{"keyword":"bitcoin","count":20,"category":"bitcoin","relevance_score":2},{"keyword":"stacks","count":109,"category":"stacks","relevance_score":2},{"keyword":"defi","count":4,"category":"defi","relevance_score":2},{"keyword":"DEFI","count":4,"category":"defi","relevance_score":2},{"keyword":"BTCFI","count":1,"category":"btcfi","relevance_score":2},{"keyword":"finance","count":4,"category":"finance","relevance_score":2},{"keyword":"collateral","count":1,"category":"collateral","relevance_score":2},{"keyword":"yield","count":3,"category":"yield","relevance_score":2},{"keyword":"leverage","count":1,"category":"leverage","relevance_score":2},{"keyword":"hackathon","count":3,"category":"hackathon","relevance_score":2},{"keyword":"github","count":6,"category":"github","relevance_score":2},{"keyword":"ethereum","count":1,"category":"ethereum","relevance_score":2},{"keyword":"aptos","count":26,"category":"aptos","relevance_score":2},{"keyword":"smart contract","count":2,"category":"smart_contracts","relevance_score":2},{"keyword":"clarity","count":5,"category":"clarity","relevance_score":2},{"keyword":"UI","count":4,"category":"ui_ux","relevance_score":2},{"keyword":"UX","count":2,"category":"ui_ux","relevance_score":2}]},"network_intelligence":{"top_interactors":[{"creator_name":"peacelovemusicg","creator_display_name":"PeaceLoveMusic.btc ✌️🖤 🎶","creator_avatar":"https://pbs.twimg.com/profile_images/1963613683206008832/XY3x9PVD_200x200.jpg","count":125},{"creator_name":"skullcoinbtc","creator_display_name":"Skullcoin","creator_avatar":"https://pbs.twimg.com/profile_images/1833193247272816640/SAGEXICy_200x200.jpg","count":70},{"creator_name":"herogamer21btc","creator_display_name":"HeroGamer21.btc 🥕⚡","creator_avatar":"https://pbs.twimg.com/profile_images/1976828193861488640/TJA8LYBZ_200x200.jpg","count":68},{"creator_name":"bitcoinlivedb","creator_display_name":"₿itcoinlive 𝕏 Decentralized ₿roadcasting","creator_avatar":"https://pbs.twimg.com/profile_images/1576272517362229250/ClE6jti2_200x200.jpg","count":50},{"creator_name":"stacks","creator_display_name":"stacks.btc","creator_avatar":"https://pbs.twimg.com/profile_images/1764968185399267328/lrmnHOuN_200x200.jpg","count":39},{"creator_name":"stacksaiguild","creator_display_name":"Stacks AI Guild | stacksaiguild.btc","creator_avatar":"https://pbs.twimg.com/profile_images/1956429611111182336/PwZvQR3A_200x200.jpg","count":31},{"creator_name":"gpsc_stx","creator_display_name":"Gpsc.btc","creator_avatar":"https://pbs.twimg.com/profile_images/1905292260020715523/669ZDnPf_200x200.jpg","count":29},{"creator_name":"deorganizedbtc","creator_display_name":"deorganized.btc 🎙","creator_avatar":"https://pbs.twimg.com/profile_images/1876023915136372736/TQtCItAC_200x200.jpg","count":26},{"creator_name":"3hunnatheartist","creator_display_name":"3hunnatheartist.btc","creator_avatar":"https://pbs.twimg.com/profile_images/1967283265632378880/uF2DaMHc_200x200.jpg","count":24},{"creator_name":"rockyntheblock","creator_display_name":"Rocky & the Block","creator_avatar":"https://pbs.twimg.com/profile_images/1559408849085292544/zH1HX1_0_200x200.jpg","count":22},{"creator_name":"mrwagmibtc","creator_display_name":"mrwagmi 🟧","creator_avatar":"https://pbs.twimg.com/profile_images/1966001527413252096/b7tA9G0j_200x200.png","count":21},{"creator_name":"joevezz","creator_display_name":"JoeVezz","creator_avatar":"https://pbs.twimg.com/profile_images/1930383222309040129/qTmJNSm-_200x200.jpg","count":14},{"creator_name":"xyzerobtc","creator_display_name":"zeroxyz.base.eth | .btc ♟","creator_avatar":"https://pbs.twimg.com/profile_images/1973794428889276417/dVYUQTEV_200x200.jpg","count":13},{"creator_name":"melbellebtc","count":11},{"creator_name":"lunarcrush","creator_display_name":"LunarCrush Social Analytics","creator_avatar":"https://pbs.twimg.com/profile_images/1958717678476304384/CbzjwJvB_200x200.png","count":10},{"creator_name":"melbelle_btc","creator_display_name":"mel.btc","creator_avatar":"https://pbs.twimg.com/profile_images/1974742359570108416/8zNJeuq3_200x200.jpg","count":10},{"creator_name":"theliberalthumb","creator_display_name":"Sam","creator_avatar":"https://pbs.twimg.com/profile_images/1976335546969440256/-cCOG2cK_200x200.jpg","count":9},{"creator_name":"piplord1010","creator_display_name":"Plord.BTC","creator_avatar":"https://pbs.twimg.com/profile_images/1625103249698131976/9_6TtcxM_200x200.jpg","count":9},{"creator_name":"gpscstx","count":8},{"creator_name":"jackbinswitch","creator_display_name":"Jackbinswitch.btc 🦡","creator_avatar":"https://pbs.twimg.com/profile_images/1965586259834712064/3RAj2aOA_200x200.jpg","count":8}],"network_size":20,"influence_metrics":{"total_interactions":597,"average_interactions_per_member":29.85,"max_interactions":125,"network_diversity":20},"community_quality":{"high_interaction_members":1,"quality_score":0.05,"top_members":[{"creator_name":"peacelovemusicg","creator_display_name":"PeaceLoveMusic.btc ✌️🖤 🎶","creator_avatar":"https://pbs.twimg.com/profile_images/1963613683206008832/XY3x9PVD_200x200.jpg","count":125},{"creator_name":"skullcoinbtc","creator_display_name":"Skullcoin","creator_avatar":"https://pbs.twimg.com/profile_images/1833193247272816640/SAGEXICy_200x200.jpg","count":70},{"creator_name":"herogamer21btc","creator_display_name":"HeroGamer21.btc 🥕⚡","creator_avatar":"https://pbs.twimg.com/profile_images/1976828193861488640/TJA8LYBZ_200x200.jpg","count":68},{"creator_name":"bitcoinlivedb","creator_display_name":"₿itcoinlive 𝕏 Decentralized ₿roadcasting","creator_avatar":"https://pbs.twimg.com/profile_images/1576272517362229250/ClE6jti2_200x200.jpg","count":50},{"creator_name":"stacks","creator_display_name":"stacks.btc","creator_avatar":"https://pbs.twimg.com/profile_images/1764968185399267328/lrmnHOuN_200x200.jpg","count":39}]},"cross_platform_analysis":{}},"temporal_patterns":{"data_points":685,"time_range":{"start":1758250800,"end":1760839200,"duration_days":29.958333333333332},"growth_patterns":{"follower_growth":-2085,"growth_rate":-100,"max_followers":2227,"min_followers":0},"activity_patterns":{"total_interactions":31140,"average_interactions_per_hour":45.45985401459854,"peak_interactions":466,"total_posts_active":3496,"average_posts_per_hour":5.103649635036496},"performance_trends":{"best_rank":905222,"worst_rank":2149828,"rank_improvement":830441,"average_rank":1356504.7685185184}},"social_score":{"overall_score":56,"component_scores":{"followers":40,"engagement":60,"stacks_alignment":100,"network_quality":5},"weighted_breakdown":{"followers":10,"engagement":15,"stacks_alignment":30,"network_quality":1},"grant_recommendation":"CONDITIONAL APPROVE","confidence_level":"MEDIUM","risk_factors":["Weak network connections"],"strengths":["High engagement rates","Strong Stacks ecosystem alignment"]},"grant_evaluation":{"recommendation":"CONDITIONAL APPROVE","confidence_level":"MEDIUM","overall_score":56,"key_factors":{"follower_strength":40,"engagement_quality":60,"ecosystem_alignment":100,"network_influence":5},"risk_factors":["Weak network connections"],"strengths":["High engagement rates","Strong Stacks ecosystem alignment"],"strategic_value":{"ecosystem_contribution":"HIGH - Strong alignment with Stacks ecosystem priorities","bitcoin_layer2_alignment":"MEDIUM - Some Bitcoin/Layer 2 content","community_building_potential":"MEDIUM - Moderate audience for community building","technical_advocacy":"HIGH - Strong technical content alignment","overall_strategic_score":80}}};        document.addEventListener('DOMContentLoaded', () => { 
+            renderAnalysisMetadata(jsonData.analysis_metadata);
+            renderCreatorProfile(jsonData.creator_profile);
+            renderGrantEvaluation(jsonData.grant_evaluation);
+            renderTopCommunity(jsonData.creator_profile);
+            renderTopicInfluenceAnalysis(jsonData.topic_influence_analysis);
+            renderContentIntelligence(jsonData.content_intelligence);
+            renderNetworkIntelligence(jsonData.network_intelligence);
+            renderViralPosts(jsonData.content_intelligence.viral_posts);
+        });
+
+        function renderAnalysisMetadata(data) {
+            const container = document.getElementById('analysis-metadata');
+            let html = '';
+            for (const key in data) {
+                html += `<div class="p-2 bg-gray-800 rounded"><strong class="capitalize font-bold">${key.replace(/_/g, ' ')}:</strong> ${data[key]}</div>`;
+            }
+            container.innerHTML = html;
+        }
+
+        function renderCreatorProfile(data) {
+            const container = document.getElementById('creator-profile');
+            container.innerHTML = `
+                <div class="flex items-center mb-4">
+                    <img src="${data.creator_avatar}" alt="Creator Avatar" class="w-16 h-16 rounded-full mr-4">
+                    <div>
+                        <h3 class="text-xl font-bold">${data.creator_display_name}</h3>
+                        <p class="text-gray-400">@${data.creator_name}</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="p-2 bg-gray-800 rounded"><strong class="font-bold">Followers:</strong> ${data.creator_followers.toLocaleString()}</div>
+                    <div class="p-2 bg-gray-800 rounded"><strong class="font-bold">Rank:</strong> ${data.creator_rank.toLocaleString()}</div>
+                    <div class="p-2 bg-gray-800 rounded"><strong class="font-bold">24h Interactions:</strong> ${data.interactions_24h.toLocaleString()}</div>
+                </div>
+            `;
+        }
+
+        function renderTopCommunity(data) {
+            const container = document.getElementById('top-community');
+            container.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    ${data.top_community.slice(0, 12).map((member, index) => `
+                        <div class="bg-gray-800 rounded-lg p-4 border border-gray-700 hover:border-blue-500 transition-all duration-300 transform hover:scale-105">
+                            <div class="flex items-center space-x-3 mb-3">
+                                <div class="relative">
+                                    <img src="${member.creator_avatar}" 
+                                         alt="${member.creator_display_name || member.creator_name}"
+                                         class="w-12 h-12 rounded-full border-2 border-blue-500 object-cover"
+                                         onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjQiIGN5PSIyNCIgcj0iMjQiIGZpbGw9IiM2MzY2RjEiLz4KPHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4PSIxMiIgeT0iMTIiPgo8cGF0aCBkPSJNMTIgMTJDMTQuMjA5MSAxMiAxNiAxMC4yMDkxIDE2IDhDMTYgNS43OTA5IDE0LjIwOTEgNCAxMiA0QzkuNzkwODYgNCA4IDUuNzkwOSA4IDhDOCAxMC4yMDkxIDkuNzkwODYgMTIgMTIgMTJaIiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBkPSJNMTIgMTRDOC42ODYyOSAxNCA2IDE2LjY4NjMgNiAyMEgxOEMxOCAxNi42ODYzIDE1LjMxMzcgMTQgMTIgMTRaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4KPC9zdmc+'">
+                                    <div class="absolute -top-1 -right-1 bg-blue-600 text-white text-xs rounded-full w-6 h-6 flex items-center justify-center font-bold">
+                                        ${index + 1}
+                                    </div>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <h4 class="text-white font-semibold truncate">${member.creator_display_name || member.creator_name}</h4>
+                                    <p class="text-gray-400 text-sm truncate">@${member.creator_name}</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-2">
+                                    <div class="w-3 h-3 bg-blue-500 rounded-full"></div>
+                                    <span class="text-gray-300 text-sm">${member.count} interactions</span>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-blue-400 font-bold text-lg">${member.count}</div>
+                                    <div class="text-gray-500 text-xs">total</div>
+                                </div>
+                            </div>
+                            <div class="mt-3 bg-gray-700 rounded-full h-2">
+                                <div class="bg-gradient-to-r from-blue-500 to-cyan-500 h-2 rounded-full transition-all duration-1000" 
+                                     style="width: ${(member.count / Math.max(...data.top_community.map(m => m.count))) * 100}%"></div>
+                            </div>
+                    </div>
+                    `).join('')}
+                </div>
+                <div class="mt-6 text-center">
+                    <div class="inline-flex items-center space-x-4 bg-gray-800 rounded-lg px-6 py-3 border border-gray-700">
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-blue-400">${data.top_community.length}</div>
+                            <div class="text-gray-400 text-sm">Community Members</div>
+                        </div>
+                        <div class="w-px h-8 bg-gray-600"></div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-cyan-400">${data.top_community.reduce((sum, m) => sum + m.count, 0)}</div>
+                            <div class="text-gray-400 text-sm">Total Interactions</div>
+                        </div>
+                        <div class="w-px h-8 bg-gray-600"></div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-green-400">${(data.top_community.reduce((sum, m) => sum + m.count, 0) / data.top_community.length).toFixed(1)}</div>
+                            <div class="text-gray-400 text-sm">Avg per Member</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderTopicInfluenceAnalysis(data) {
+            const ctx = document.getElementById('topic-influence-chart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: data.topics.map(t => t.topic),
+                    datasets: [{
+                        label: 'Topic Count',
+                        data: data.topics.map(t => t.count),
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                color: 'white'
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: 'white'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderContentIntelligence(data) {
+            // Sentiment Chart
+            const sentimentCtx = document.getElementById('sentiment-chart').getContext('2d');
+            new Chart(sentimentCtx, {
+                type: 'pie',
+                data: {
+                    labels: Object.keys(data.sentiment_analysis.sentiment_distribution),
+                    datasets: [{
+                        label: 'Sentiment Distribution',
+                        data: Object.values(data.sentiment_analysis.sentiment_distribution),
+                        backgroundColor: [
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(153, 102, 255, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(153, 102, 255, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                }
+            });
+
+            // Keyword Frequency Chart
+            const keywordCtx = document.getElementById('keyword-frequency-chart').getContext('2d');
+            new Chart(keywordCtx, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(data.keyword_frequency),
+                    datasets: [{
+                        label: 'Keyword Frequency',
+                        data: Object.values(data.keyword_frequency),
+                        backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                        borderColor: 'rgba(255, 159, 64, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                color: 'white'
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: 'white'
+                            }
+                        }
+                    }
+                }
+            });
+
+            const container = document.getElementById('content-intelligence-details');
+            container.innerHTML = `
+                <div class="mt-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-gray-800 rounded-lg p-4">
+                            <h4 class="text-lg font-bold mb-3 text-white">Content Summary</h4>
+                            <div class="space-y-2">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-300">Total Posts:</span>
+                                    <span class="text-blue-400 font-bold">${data.total_posts}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-300">Avg Interactions:</span>
+                                    <span class="text-green-400 font-bold">${data.engagement_analysis.average_interactions_per_post.toFixed(1)}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-300">Max Interactions:</span>
+                                    <span class="text-purple-400 font-bold">${data.engagement_analysis.max_interactions.toLocaleString()}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-800 rounded-lg p-4">
+                            <h4 class="text-lg font-bold mb-3 text-white">Sentiment Overview</h4>
+                            <div class="space-y-2">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-300">Average Sentiment:</span>
+                                    <span class="text-yellow-400 font-bold">${data.sentiment_analysis.average_sentiment.toFixed(2)}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-300">Positive Posts:</span>
+                                    <span class="text-green-400 font-bold">${data.sentiment_analysis.positive_posts}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-300">Neutral Posts:</span>
+                                    <span class="text-blue-400 font-bold">${data.sentiment_analysis.neutral_posts}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderNetworkIntelligence(data) {
+            // This function is now handled by renderTopCommunity - keeping for compatibility
+            console.log('Network intelligence data:', data);
+        }
+
+        function renderGrantEvaluation(data) {
+            const container = document.getElementById('grant-evaluation');
+            container.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Recommendation Card -->
+                    <div class="bg-gradient-to-br ${data.recommendation === 'CONDITIONAL APPROVE' ? 'from-yellow-600 to-orange-600' : data.recommendation === 'APPROVE' || data.recommendation === 'STRONG APPROVE' ? 'from-green-600 to-green-800' : 'from-red-600 to-red-800'} rounded-lg p-6 text-center">
+                        <div class="text-4xl font-bold text-white mb-2">${data.recommendation}</div>
+                        <div class="text-white/80 text-sm">Grant Recommendation</div>
+                    </div>
+                    
+                    <!-- Overall Score Card -->
+                    <div class="bg-gradient-to-br from-blue-600 to-blue-800 rounded-lg p-6 text-center">
+                        <div class="text-4xl font-bold text-white mb-2">${data.overall_score}/100</div>
+                        <div class="text-blue-200 text-sm">Overall Score</div>
+                        <div class="mt-3 bg-blue-900/30 rounded-full h-2">
+                            <div class="bg-white h-2 rounded-full transition-all duration-1000" style="width: ${data.overall_score}%"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Strategic Score Card -->
+                    <div class="bg-gradient-to-br from-purple-600 to-purple-800 rounded-lg p-6 text-center">
+                        <div class="text-4xl font-bold text-white mb-2">${data.strategic_value.overall_strategic_score}/100</div>
+                        <div class="text-purple-200 text-sm">Strategic Score</div>
+                        <div class="mt-3 bg-purple-900/30 rounded-full h-2">
+                            <div class="bg-white h-2 rounded-full transition-all duration-1000" style="width: ${data.strategic_value.overall_strategic_score}%"></div>
+                </div>
+                </div>
+                </div>
+            `;
+        }
+
+        function renderViralPosts(posts) {
+            const container = document.getElementById('viral-posts-container');
+            const maxInteractions = Math.max(...posts.map(p => p.interactions));
+            
+            container.innerHTML = posts.slice(0, 10).map((post, index) => {
+                const engagementPercentage = (post.interactions / maxInteractions) * 100;
+                const sentimentColor = post.sentiment >= 3.5 ? 'text-green-400' : post.sentiment >= 2.5 ? 'text-yellow-400' : 'text-red-400';
+                const sentimentIcon = post.sentiment >= 3.5 ? '😊' : post.sentiment >= 2.5 ? '😐' : '😞';
+                
+                return `
+                    <div class="bg-gradient-to-r from-gray-800 to-gray-700 rounded-xl p-6 border border-gray-600 hover:border-blue-500 transition-all duration-300 transform hover:scale-[1.02] shadow-lg">
+                        <!-- Header -->
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center space-x-3">
+                                <div class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">
+                                    ${index + 1}
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-bold text-white">Tweet #${index + 1}</h3>
+                                    <p class="text-sm text-gray-400">ID: ${post.id}</p>
+                                </div>
+                            </div>
+                            <a href="${post.link}" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors duration-200 flex items-center space-x-2">
+                                <span>🔗</span>
+                                <span>View Original</span>
+                            </a>
+                        </div>
+                        
+                        <!-- Tweet Content -->
+                        <div class="bg-gray-900 rounded-lg p-4 mb-4 border border-gray-600">
+                            <div class="flex items-start space-x-3">
+                                <div class="text-blue-400 text-2xl">🐦</div>
+                                <div class="flex-1">
+                                    <p class="text-gray-100 leading-relaxed whitespace-pre-wrap">${post.title || 'No content available'}</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Metrics Row -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                            <!-- Interactions -->
+                            <div class="bg-gradient-to-r from-purple-600 to-purple-800 rounded-lg p-4 text-center">
+                                <div class="text-2xl font-bold text-white">${post.interactions.toLocaleString()}</div>
+                                <div class="text-purple-200 text-sm">Interactions</div>
+                            </div>
+                            
+                            <!-- Sentiment -->
+                            <div class="bg-gradient-to-r from-green-600 to-green-800 rounded-lg p-4 text-center">
+                                <div class="text-2xl font-bold text-white flex items-center justify-center space-x-2">
+                                    <span>${sentimentIcon}</span>
+                                    <span>${post.sentiment}</span>
+                                </div>
+                                <div class="text-green-200 text-sm">Sentiment</div>
+                            </div>
+                            
+                            <!-- Engagement Level -->
+                            <div class="bg-gradient-to-r from-orange-600 to-orange-800 rounded-lg p-4 text-center">
+                                <div class="text-2xl font-bold text-white">${engagementPercentage.toFixed(1)}%</div>
+                                <div class="text-orange-200 text-sm">Engagement</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Engagement Bar -->
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-300 text-sm font-medium">Engagement Level</span>
+                                <span class="text-blue-400 font-bold">${engagementPercentage.toFixed(1)}%</span>
+                            </div>
+                            <div class="bg-gray-700 rounded-full h-3 overflow-hidden">
+                                <div class="bg-gradient-to-r from-blue-500 via-purple-500 to-cyan-500 h-3 rounded-full transition-all duration-1000 ease-out" 
+                                     style="width: ${engagementPercentage}%"></div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+    </script>
+</body>
+</html>

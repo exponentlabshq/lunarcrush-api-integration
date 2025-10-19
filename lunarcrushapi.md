@@ -2647,4 +2647,3 @@ Schema:
 + **change**: The type of change that occurred
 + **description**: Explanation of the change and the potential impact
 + **time**: A unix timestamp (in seconds)
-
