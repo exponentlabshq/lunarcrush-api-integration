@@ -2,6 +2,8 @@
 
 A comprehensive social analytics dashboard leveraging LunarCrush API v4 to analyze creator profiles, community interactions, and content performance for grant evaluation purposes.
 
+![LunarCrush Analytics Dashboard](lunar-crush-analytics-screenshot.png)
+
 ## 🚀 Overview
 
 This project provides an exhaustive analysis framework for evaluating social media creators using LunarCrush's powerful social analytics API. Originally designed for the Stacks DeGrants Phase III Grant Program, it enables treasury committees to make data-driven funding decisions based on social presence, engagement quality, and ecosystem alignment.
