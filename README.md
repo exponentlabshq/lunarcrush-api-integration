@@ -2,7 +2,13 @@
 
 A comprehensive social analytics dashboard leveraging LunarCrush API v4 to analyze creator profiles, community interactions, and content performance for grant evaluation purposes.
 
-![LunarCrush Analytics Dashboard](lunar-crush-analytics-screenshot.png)
+[![LunarCrush Analytics Dashboard](lunar-crush-analytics-screenshot.png)](https://blockface-lunarcrush-stacks-evals.netlify.app/)
+
+## 🌐 Live Demo
+
+**👉 [View Live Dashboard](https://blockface-lunarcrush-stacks-evals.netlify.app/)**
+
+Experience the full interactive dashboard with real-time analytics, interactive charts, and comprehensive creator analysis.
 
 ## 🚀 Overview
 
